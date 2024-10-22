@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "981089593111",
+    "project_id": "newbirth-e414d",
+    "storage_bucket": "newbirth-e414d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981089593111:android:92b52a93d46b308ed07952",
+        "android_client_info": {
+          "package_name": "com.asa.newbirth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI_NN5rG8G9udW-izxMSYWcWAtoJnD1V0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
