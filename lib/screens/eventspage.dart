@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_birth/apis/events.dart';
 import 'package:new_birth/screens/detailEvent.dart';
 import 'package:new_birth/widget/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_birth/widget/textfield.dart';
 
 class EventPage extends StatefulWidget {
   const EventPage({super.key});
@@ -77,20 +79,25 @@ class _EventPageState extends State<EventPage> {
           : eventList.isEmpty
               ? const Center(child: Text('No events available.'))
               : Column(
-                children: [
-                  Container(
-                    height: 230,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/background.jpg'),
-                            fit: BoxFit.cover)),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
+                  children: [
+                    Container(
+                      height: 230,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Color(0xff5f0cfb), Color(0xff982aea)],
+                              begin: Alignment.bottomRight,
+                              end: Alignment.topLeft)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image(
+                          image: AssetImage('assets/images/new_logo.png'),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: ListView.builder(
                         itemCount: eventList.length,
                         itemBuilder: (BuildContext context, int index) {
                           final event = eventList[index];
@@ -98,17 +105,29 @@ class _EventPageState extends State<EventPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 9),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 9),
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => EventDetailPage(description: event.subtitle, title: event.title, fullDate: event.fullDate, time: event.time, address: event.address, phone: event.phone, fax: event.fax
-                                              , email: event.email, image: event.image,)));
+                                            builder: (context) =>
+                                                EventDetailPage(
+                                                  description: event.subtitle,
+                                                  title: event.title,
+                                                  fullDate: event.fullDate,
+                                                  time: event.time,
+                                                  address: event.address,
+                                                  phone: event.phone,
+                                                  webViewUrl: event.fax,
+                                                  year: event.email,
+                                                  image: event.image,
+                                                )));
                                   },
                                   child: Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
                                     padding: const EdgeInsets.all(16.0),
                                     decoration: BoxDecoration(
                                       gradient: const LinearGradient(
@@ -121,20 +140,25 @@ class _EventPageState extends State<EventPage> {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           height: 80,
                                           width: 80,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Colors.black.withOpacity(0.5),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color:
+                                                Colors.black.withOpacity(0.5),
                                           ),
                                           child: Center(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Text(
-                                                '${event.shortMonth}\r${event.shortDate}',
+                                                textAlign: TextAlign.center,
+                                                '${event.shortMonth}\r${event.shortDate}\n${event.email}',
                                                 style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white,
@@ -175,6 +199,58 @@ class _EventPageState extends State<EventPage> {
                                             ],
                                           ),
                                         ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 11, top: 12),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => EventDetailPage(description: event.subtitle,
+                                                title: event.title,
+                                                fullDate: event.fullDate,
+                                                time: event.time,
+                                                address: event.address,
+                                                phone: event.phone,
+                                                webViewUrl: event.fax,
+                                                year: event.email,
+                                                image: event.image,)));
+                                            },
+                                            child: Container(
+                                              height: 55,
+                                              width: 95,
+                                              decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                    colors: [
+                                                      Color(0xff5f0cfb),
+                                                      Color(0xff982aea)
+                                                    ],
+                                                    begin:
+                                                        Alignment.bottomRight,
+                                                    end: Alignment.topLeft),
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    blurRadius: 10,
+                                                    offset: Offset(0, 5),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Register",
+                                                  style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    letterSpacing: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -184,9 +260,9 @@ class _EventPageState extends State<EventPage> {
                           );
                         },
                       ),
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
     );
   }
 

@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   _buildSection(
                     height: sectionHeight,
-                    title: "New Birth Breakthroughs",
+                    title: "New Birth News",
                     backgroundColor: Colors.black.withOpacity(0.3),
                     onTap: () => Navigator.push(
                       context,

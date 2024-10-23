@@ -66,7 +66,7 @@ class _NewBirthBreakThroughPageState extends State<NewBirthBreakThroughPage> {
         ],
         toolbarHeight: 60,
         title: Text(
-          "New Birth Break Through",
+          "New Birth News",
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w600,
             color: Colors.white,
