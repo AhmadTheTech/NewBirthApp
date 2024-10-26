@@ -184,6 +184,7 @@ class _SundayReplyPageState extends State<SundayReplyPage> {
         setState(() {
           sundayData = data.map((json) => SundayReply.fromJson(json)).toList();
           isLoading = false;
+          print('Data received: ${response.body},');
         });
       } else {
         throw Exception(

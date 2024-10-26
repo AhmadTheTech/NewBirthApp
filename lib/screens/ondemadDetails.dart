@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../widget/drawer.dart';
@@ -23,41 +24,13 @@ class OnDemadDetails extends StatefulWidget {
 }
 
 class _OnDemadDetailsState extends State<OnDemadDetails> {
-  late WebViewController _controller;
-  bool _isLoading = true;
+  late final String videoId;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _initializeWebView();
-  }
-
-  void _initializeWebView() {
-    final videoId = widget.videoUrl;
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadHtmlString("""
-        <html lang="en">
-          <body style="margin:0;padding:0;">
-           <iframe width="100%" height="500" src="$videoId" title="New Birth Live" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </body>
-        </html>
-      """)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onPageFinished: (String url) {
-            setState(() {
-              _isLoading = false;
-            });
-          },
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              return NavigationDecision.navigate;
-            }
-            return NavigationDecision.prevent;
-          },
-        ),
-      );
+    videoId = widget.videoUrl;
   }
 
   @override
@@ -111,46 +84,38 @@ class _OnDemadDetailsState extends State<OnDemadDetails> {
           ),
         ),
       ),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Column(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 250,
+            child: VimeoPlayer(videoId: videoId),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  widget.title,
+                  style: GoogleFonts.poppins(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(
-                  height: 220,
-                  child: WebViewWidget(controller: _controller),
+                  height: 06,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 08,
-                      ),
-                      Text(
-                        widget.description,
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                Text(
+                  widget.description,
+                  style: GoogleFonts.poppins(
+                      fontSize: 17, fontWeight: FontWeight.w400),
+                )
               ],
             ),
+          )
+        ],
+      ),
     );
   }
 }
