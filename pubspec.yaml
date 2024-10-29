@@ -53,6 +53,7 @@ dependencies:
   change_app_package_name: ^1.4.0
   vimeo_player_flutter: ^0.1.0
   firebase_analytics: ^11.3.3
+  flutter_launcher_icons: ^0.14.1
 
 dev_dependencies:
   flutter_test:
@@ -105,3 +106,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+#  flutter_launcher_icon:
+#    android: 'launcher_icon',
+#    ios: "AppIcon",
+#    image_path: ,
